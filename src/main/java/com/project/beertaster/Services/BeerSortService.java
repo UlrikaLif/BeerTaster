@@ -16,4 +16,20 @@ public class BeerSortService {
     public List<BeerSort> getAllBeerSorts() {
         return (List<BeerSort>) beerSortRepository.findAll();
     }
+
+    public void addNewBeerSort(BeerSort beerSort) {
+        beerSortRepository.save(beerSort);
+    }
+
+
+    public void updateBeerSort(int id, BeerSort beerSort) {
+        if (beerSortRepository.existsById(id)){
+            beerSort.setId(id);
+            beerSortRepository.save(beerSort);
+        }
+    }
+
+    public void deleteBeerSort(int id) {
+        beerSortRepository.deleteById(id);
+    }
 }
