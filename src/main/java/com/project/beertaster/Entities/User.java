@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -12,9 +13,15 @@ public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    Set<Grade> grades;
+
     @Column(name="user_name")
     private String userName;
     private String password;
+
 
 
     // Constructor
@@ -35,6 +42,10 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Set<Grade> getGrades() {
+        return grades;
     }
 
     public String getUserName() {

@@ -1,5 +1,7 @@
 package com.project.beertaster.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,10 +12,19 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int user_id;
-    private int beer_id;
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private int grade;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "beer_id")
+    private BeerSort beerSort;
+
+    @Column(name ="given_grade")
+    private int givenGrade;
+
     private String opinion;
     private String appearance;
     private String fragrance;
@@ -40,28 +51,28 @@ public class Grade {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getBeer_id() {
-        return beer_id;
+    public BeerSort getBeerSort() {
+        return beerSort;
     }
 
-    public void setBeer_id(int beer_id) {
-        this.beer_id = beer_id;
+    public void setBeerSort(BeerSort beerSort) {
+        this.beerSort = beerSort;
     }
 
-    public int getGrade() {
-        return grade;
+    public int getGivenGrade() {
+        return givenGrade;
     }
 
-    public void setGrade(int grade) {
-        this.grade = grade;
+    public void setGivenGrade(int givenGrade) {
+        this.givenGrade = givenGrade;
     }
 
     public String getOpinion() {
@@ -121,16 +132,17 @@ public class Grade {
     }
 
 
-    // ToString method
 
+
+    // ToString method
 
     @Override
     public String toString() {
         return "Grade{" +
                 "id=" + id +
-                ", user_id=" + user_id +
-                ", beer_id=" + beer_id +
-                ", grade=" + grade +
+                ", user=" + user +
+                ", beerSort=" + beerSort +
+                ", givenGrade=" + givenGrade +
                 ", opinion='" + opinion + '\'' +
                 ", appearance='" + appearance + '\'' +
                 ", fragrance='" + fragrance + '\'' +
