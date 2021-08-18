@@ -1,6 +1,7 @@
 package com.project.beertaster.Entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="beer_sorts")
@@ -9,6 +10,10 @@ public class BeerSort {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToMany(mappedBy = "beerSort")
+    private Set<Grade> grades;
+
     private String name;
     private String category;
     private String brewery;
@@ -29,6 +34,10 @@ public class BeerSort {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Set<Grade> getGrades() {
+        return grades;
     }
 
     public String getName() {
@@ -79,5 +88,5 @@ public class BeerSort {
                 ", country='" + country + '\'' +
                 '}';
     }
-    
+
 }
