@@ -28,7 +28,6 @@ public class BeerSortController {
         beerSortService.updateBeerSort(id, beerSort);
     }
 
-
     @DeleteMapping("/api/beersorts/{id}")
     public void deleteBeerSort(@PathVariable int id){
         beerSortService.deleteBeerSort(id);

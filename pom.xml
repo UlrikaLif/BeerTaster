@@ -12,7 +12,7 @@
 	<artifactId>beertaster</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>beertaster</name>
-	<description>Appliction for beer tasting</description>
+	<description>Application for beer tasting</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
