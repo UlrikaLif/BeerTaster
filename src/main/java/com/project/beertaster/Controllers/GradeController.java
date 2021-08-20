@@ -13,27 +13,28 @@ public class GradeController {
     @Autowired
     GradeService gradeService;
 
-    @GetMapping("/api/grades")
-    public List<Grade> getAllGrades(){
-        return gradeService.getAllGrades();
+    // Access grades by active user - currently a user can only see his/her own grades
+
+    @GetMapping("/api/{userid}/grades")
+    public List<Grade> getAllGradesForUser(@PathVariable int userid){
+        return gradeService.getAllGradesForUser(userid);
+    }
+
+    @PostMapping("/api/{userid}/{beerid}/grades")
+    public Grade addNewGrade(@PathVariable int userid, @PathVariable int beerid, @RequestBody Grade grade){
+        return gradeService.addNewGradeForUser(userid, beerid, grade);
     }
 
 
-    @PostMapping("/api/grades")
-    public void addNewGrade(@RequestBody Grade grade){
-        gradeService.addNewGrade(grade);
+    @PutMapping("/api/{userid}/{beerid}/grades/{id}")
+    public Grade updateGrade(@PathVariable int userid, @PathVariable int beerid, @PathVariable int id, @RequestBody Grade grade){
+        return gradeService.updateGrade(userid, beerid, id, grade);
     }
 
 
-    @PutMapping("/api/grades/{id}")
-    public void updateGrade(@PathVariable int id, @RequestBody Grade grade){
-        gradeService.updateGrade(id, grade);
-    }
-
-
-    @DeleteMapping("/api/grades/{id}")
-    public void deleteGrade(@PathVariable int id){
-        gradeService.deleteGrade(id);
+    @DeleteMapping("/api/{userid}/{beerid}/grades/{id}")
+    public void deleteGrade(@PathVariable int userid, @PathVariable int beerid, @PathVariable int id){
+        gradeService.deleteGrade(userid, beerid, id);
     }
 
 }
