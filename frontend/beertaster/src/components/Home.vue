@@ -27,5 +27,12 @@ export default {
 </script>
 
 <style>
+*{ 
+    box-sizing: border-box;
+    font-size: 30px;
+
+}
+
+
 
 </style>
