@@ -1,5 +1,7 @@
 package com.project.beertaster.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ public class BeerSort {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "beerSort")
     private Set<Grade> grades;
 
