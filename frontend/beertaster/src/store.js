@@ -6,7 +6,7 @@ const state = {
 
 
 const mutations = {
-    getAllBeers(state,beerList){
+    setAllBeers(state,beerList){
         state.allBeers = beerList;
         console.log (beerList);
     },
@@ -25,7 +25,7 @@ const actions = {
             console.error(error)
         }
         console.log("action", beerList)
-        store.commit ('getAllBeers', beerList)
+        store.commit ('setAllBeers', beerList)
     },
 
 }
