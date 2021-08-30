@@ -1,66 +1,71 @@
 <template>
     <div>
-        <h1>Skapa ett nytt omdöme</h1>
-
+        <h1>Skapa ett omdöme för {{currentBeer.name}}</h1>
 
         <form id="grade-form" @submit="createGrade">
 
-            <p v-if="errors.length">
+            <div v-if="errors.length">
                 <b>Var vänlig och korrigera följande fel innan du skickar in: </b>
                 <ul>
                     <li v-for="(error,index) in errors" :key="index"> {{error}}</li>
                 </ul>
-            </p>
-
-            <p>
-                <label for="givenGrade"><Strong>Mitt totala betyg: </Strong></label>
-                <input id="givenGrade" v-model="givenGrade" type="number" name="givenGrade" min="1" max="5">
-            </p>
-
-            <div>
-                <strong>Mitt omdöme: </strong><br>
-                <textarea id="opinion" v-model="opinion" name="opinion" rows="5" cols="50"></textarea>
             </div>
 
-            <div>
-                <strong>Utseende: </strong><br>
-                <textarea id="appearance" v-model="appearance" name="appearance" rows="3" cols="50"></textarea>
+        <div class="row">
+            <div class="column"> 
+                <p>
+                    <label for="givenGrade"><Strong>Mitt totala betyg: </Strong></label>
+                    <input id="givenGrade" v-model="givenGrade" type="number" name="givenGrade" min="1" max="5">
+                </p>
+
+                <div>
+                    <strong>Mitt omdöme: </strong><br>
+                    <textarea id="opinion" v-model="opinion" name="opinion" rows="5" cols="50"></textarea>
+                </div>
+
+                <div>
+                    <strong>Utseende: </strong><br>
+                    <textarea id="appearance" v-model="appearance" name="appearance" rows="3" cols="50"></textarea>
+                </div>
+
+                <div class="fragrance">
+                    <strong> Doft: </strong> <br>
+                    <textarea id="fragrance" v-model="fragrance" name="fragrance" rows="3" cols="50"></textarea>
+                </div>
             </div>
 
-            <div class="fragrance">
-                <strong> Doft: </strong> <br>
-                <textarea id="fragrance" v-model="fragrance" name="fragrance" rows="3" cols="50"></textarea>
+            <div class="column">
+                <div class="taste">
+                    <p><strong>Smak: </strong></p>
+                    <p>
+                        <label for="bitterness">Beskhet: </label>
+                        <input id="bitterness" v-model="bitterness" type="number" name="bitterness" min="1" max="5">
+                    </p>
+
+                    <p>
+                        <label for="fullness">Fyllighet: </label>
+                        <input id="fullness" v-model="fullness" type="number" name="fullness" min="1" max="5">
+                    </p>
+
+                    <p>
+                        <label for="freshness">Friskhet: </label>
+                        <input id="freshness" v-model="freshness" type="number" name="freshness" min="1" max="5">
+                    </p>
+
+                    <p>
+                        <label for="sweetness">Sötma: </label>
+                        <input id="sweetness" v-model="sweetness" type="number" name="sweetness" min="1" max="5">
+                    </p>
+                </div>     
+                
+                <p class="form-button">
+                    <input type="submit" value="Skicka in">
+                    <input type="reset" value="Rensa formulär">
+                </p>
+
             </div>
-
-            <div class="taste">
-                <p><strong>Smak: </strong></p>
-                <p>
-                    <label for="bitterness">Beskhet: </label>
-                    <input id="bitterness" v-model="bitterness" type="number" name="bitterness" min="1" max="5">
-                </p>
-
-                <p>
-                    <label for="fullness">Fyllighet: </label>
-                    <input id="fullness" v-model="fullness" type="number" name="fullness" min="1" max="5">
-                </p>
-
-                <p>
-                    <label for="freshness">Friskhet: </label>
-                    <input id="freshness" v-model="freshness" type="number" name="freshness" min="1" max="5">
-                </p>
-
-                <p>
-                    <label for="sweetness">Sötma: </label>
-                    <input id="sweetness" v-model="sweetness" type="number" name="sweetness" min="1" max="5">
-                </p>
-            </div>     
-            
-            <p class="form-button">
-                <input type="submit" value="Skicka in">
-                <input type="reset" value="Rensa formulär">
-            </p>
-
-            
+        </div>
+           
         </form>
 
 
@@ -84,7 +89,6 @@ export default {
             fullness: null,
             freshness: null,
             sweetness: null,
-
         }
     },
 
@@ -95,9 +99,7 @@ export default {
         currentBeer(){
             return this.$store.state.currentBeer;
         },
-        lastGrade(){
-            return this.$store.state.lastGrade;
-        }
+    
 
     },
 
@@ -125,8 +127,7 @@ export default {
         createGrade(e){
             
             if (this.checkForm(e)){
-                console.log("Vi kan skapa ett betyg!")
-
+                
                 let newGrade = {
                     givenGrade: this.givenGrade,
                     opinion: this.opinion,
@@ -138,8 +139,8 @@ export default {
                     sweetness: this.sweetness,
                 }
 
-                this.addGradeToDB(newGrade);
-
+                
+                this.addGradeToDB(newGrade);            
 
             }
 
@@ -149,7 +150,7 @@ export default {
         async addGradeToDB(grade){
 
             let userId = "2";   //currentUser.id;
-            let beerId = "4" //currentBeer.id;
+            let beerId = this.currentBeer.id;
             let suppl = userId + '/' + beerId;
             
             try{
@@ -162,12 +163,14 @@ export default {
                 })
 
                 let dataFromDB = await result.json();
-                console.log("Response ", dataFromDB);
+                
+                // Go to result page
+                this.$router.push('/');
 
 
             }
             catch(err){
-                console.log("FEL - kunde inte lägga till i databasen")
+                console.log("Gick inte att lägga till i databasen");
             }
 
         }
@@ -183,6 +186,16 @@ export default {
 
 <style scoped>
 
+    .row{
+        display: flex;
+    }
+
+    .column{
+        flex: 30%;
+        padding: 10px;
+        margin: 0% 5%;
+    }
+
     input, select{
         margin-left: 10px;
     }
@@ -190,6 +203,7 @@ export default {
     form {
         text-align: left;
     }
+
   
 
 </style>
