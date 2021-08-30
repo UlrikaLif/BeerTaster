@@ -23,13 +23,22 @@
         </div>
 
         <h1> Ölsorter </h1>
-    
+     
         <div v-if=publishedBeers.length>
-            <div class="beerCard" v-for="(beer, index) in publishedBeers" v-bind:key="index" >
+            <div class="beerCard" v-for="(beer, index) in publishedBeers" v-bind:key="index">
                 Namn : {{ beer.name }}<br>
                 Kategori: {{ beer.category }}<br>
                 Bryggeri: {{ beer.brewery }}<br>
                 Ursprungsland: {{ beer.country }}
+            
+                <div class="grade">
+
+                    <button class="viewGrade">Se omdöme</button>
+
+                    
+                    <button class="addGrade" @click="chooseBeer(beer)"><router-link to='/create-grade' >Skapa omdöme</router-link></button> 
+                </div>
+                
             </div>
         </div>
         <div v-else>
@@ -52,6 +61,7 @@ export default {
         return {
             selectedCountry: "",
             selectedCategory: "",
+            
         }
     },
 
@@ -103,27 +113,35 @@ export default {
                 });
             }
 
-        }
+        },
+        currentBeer(){
+            return this.$store.state.currentBeer;
+        },
+        myGrades(){
+            return this.$store.state.myGrades;
+        },
+       
 
 
 
         
     },
 
-    method:{
-        findBeerCountry(){
-            let beerCountries = []
-            for (beer in allBeers){
-                if (!beerCountries.toLowerCase().includes(beer.country.toLowerCase())){
-                    beerCountries.push(beer.country)
-                }
-            }
-            return beerCountries;
-        }
+    methods:{
+        chooseBeer(beer){ 
+            this.$store.commit("setCurrentBeer", beer);
+        },
+
+ 
+        
+       
+       
+
 
     }
-}
 
+    
+}
 
 
 </script>
@@ -147,6 +165,10 @@ export default {
     display: inline-block;
     margin:20px;
     align-content: flex-end;
+}
+
+button{
+    margin: 5px 15px;
 }
 
 </style>
