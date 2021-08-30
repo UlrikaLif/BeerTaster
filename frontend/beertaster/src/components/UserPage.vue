@@ -15,9 +15,7 @@ export default {
     components:{
         ResultLoggedIn
     },
-
-
-
+    
     created(){
         this.$store.dispatch("getAllBeersFromDB");
       

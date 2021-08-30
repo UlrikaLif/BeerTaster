@@ -1,7 +1,16 @@
 <template>
   <nav>
-    <div>
-      <a href="/">Startpage</a>
+    <div v-if="!loggedIn">
+      <a class="nav-link" href="/">Startsida</a>
+
+      <a class="nav-link" href="/login">Logga in</a>
+      
+    </div>
+
+    <div v-else>
+      <a class="nav-link" href="/user-page">Min Sida</a>
+
+      <a class="nav-link" href="/logout" @click="test">Logga ut</a>
       
     </div>
   </nav>
@@ -10,6 +19,18 @@
 <script>
 export default {
   name: "Navbar",
+
+  computed:{
+          loggedIn(){
+              return this.$store.state.loggedIn;
+          }
+  },
+  methods:{
+    test(){
+      this.$store.commit('setLoggedIn', false)
+      this.$router.push('/')
+    }
+  }
 };
 </script>
 
@@ -32,10 +53,9 @@ img {
 
 .nav-link {
   text-decoration: none;
-  color: rgb(255, 255, 255);
-  font-family: "Open Sans", serif;
-  font-size: 18px;
-  margin-right: 20px;
+  color: rgb(245, 183, 13);
+  font-size: 30px;
+  margin-right: 30px;
 }
 
 .nav-link:hover {

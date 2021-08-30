@@ -32,11 +32,13 @@
                 Ursprungsland: {{ beer.country }}
             
                 <div class="grade">
-
-                    <button class="viewGrade">Se omdöme</button>
-
+                    <div class="button" v-if="beerHasGrade(beer)">
+                        <button class="button viewGrade" @click="findGradesForCurrentBeer(beer)"><router-link to='/view-grade' >Se omdöme</router-link></button>
+                    </div>
+                    <div class="button">
+                        <button class="addGrade" @click="chooseBeer(beer)"><router-link to='/create-grade' >Skapa omdöme</router-link></button> 
+                    </div>                 
                     
-                    <button class="addGrade" @click="chooseBeer(beer)"><router-link to='/create-grade' >Skapa omdöme</router-link></button> 
                 </div>
                 
             </div>
@@ -117,6 +119,11 @@ export default {
         currentBeer(){
             return this.$store.state.currentBeer;
         },
+
+        currentUser(){
+            return this.$store.state.currentUser;
+        },
+
         myGrades(){
             return this.$store.state.myGrades;
         },
@@ -131,6 +138,36 @@ export default {
         chooseBeer(beer){ 
             this.$store.commit("setCurrentBeer", beer);
         },
+
+        beerHasGrade(beer){
+            let hasGrade = false;
+
+            for (let grade of this.myGrades){
+                if (JSON.stringify(grade.beerSort) === JSON.stringify(beer)){
+                    hasGrade = true;
+                }
+            }
+
+            return hasGrade;
+        },
+
+        findGradesForCurrentBeer(beer){
+
+            this.chooseBeer(beer);
+
+            let gradesList = [];
+
+            for (let grade of this.myGrades){
+                if (JSON.stringify(grade.beerSort) === JSON.stringify(this.currentBeer)){
+                    gradesList.push(grade);
+                }
+            }
+
+            // set value in store
+            this.$store.commit("setCurrentBeerGrades", gradesList);
+        },
+
+       
 
  
         
@@ -165,6 +202,14 @@ export default {
     display: inline-block;
     margin:20px;
     align-content: flex-end;
+}
+
+.grade {
+    text-align: right;
+}
+
+div.button{
+    display: inline;
 }
 
 button{

@@ -149,7 +149,7 @@ export default {
 
         async addGradeToDB(grade){
 
-            let userId = "2";   //currentUser.id;
+            let userId = this.currentUser.id;
             let beerId = this.currentBeer.id;
             let suppl = userId + '/' + beerId;
             
@@ -165,7 +165,7 @@ export default {
                 let dataFromDB = await result.json();
                 
                 // Go to result page
-                this.$router.push('/');
+                this.$router.push('/user-page');
 
 
             }
