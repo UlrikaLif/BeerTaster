@@ -2,9 +2,11 @@ import { createStore } from 'vuex'
 
 const state = {
     allBeers: [],
-    currentUser: "", 
+    currentUser: {}, 
     currentBeer: {},
     myGrades: [],
+    currentBeerGrades: [],
+    loggedIn: false,
     
 }
 
@@ -14,17 +16,25 @@ const mutations = {
         state.allBeers = beerList;
     },
 
-    setCurrentUser(state, userId){
-        state.currentUser = userId;
+    setCurrentUser(state, user){
+        state.currentUser = user;
     },
 
     setCurrentBeer(state, beer){
         state.currentBeer = beer;
     },
 
+    setLoggedIn(state, boolean){
+        state.loggedIn = boolean;
+    },
+
     setMyGrades(state, gradeList){
         state.myGrades = gradeList;
         console.log("setMyGrades: ", state.myGrades)
+    },
+
+    setCurrentBeerGrades(state, gradeList){
+        state.currentBeerGrades = gradeList;
     },
 
         
@@ -45,9 +55,8 @@ const actions = {
     },
 
     async getMyGradesFromDB(store) {
-        //hard code the current user
-        let userId = "1";
-        store.commit ('setCurrentUser', userId);
+        
+        let userId = this.state.currentUser.id;
         
         let gradeList = await fetch("/api/"+userId+"/grades")
         try {
