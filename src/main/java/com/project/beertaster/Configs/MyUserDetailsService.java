@@ -1,5 +1,6 @@
 package com.project.beertaster.Configs;
 
+
 import com.project.beertaster.Entities.User;
 import com.project.beertaster.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @PostConstruct
     private void createDefaultUsers(){
         if (userRepo.findByUsername("user") == null) {
-            addUser("user", "password");
+            addUser(new User("user", "password"));
         }
     }
 
@@ -36,8 +37,8 @@ public class MyUserDetailsService implements UserDetailsService {
         return toUserDetails(user);
     }
 
-    public User addUser(String username, String password){
-        User user = new User(username, encoder.encode(password));
+    public User addUser(User user){
+        user.setPassword(encoder.encode(user.getPassword()));
         try {
             return userRepo.save(user);
         } catch (Exception ex) {
