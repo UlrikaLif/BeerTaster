@@ -1,18 +1,21 @@
 <template>
   <nav>
     <div v-if="!loggedIn">
-      <a class="nav-link" href="/">Startsida</a>
+      <router-link class="nav-link" to="/">Startsida</router-link>
 
-      <a class="nav-link" href="/login">Logga in</a>
+      <router-link class="nav-link" to="/login">Logga in</router-link>
       
     </div>
 
     <div v-else>
-      <a class="nav-link" href="/user-page">Min Sida</a>
+      <router-link class="nav-link" to="/user-page">Min Sida</router-link>
 
-      <a class="nav-link" href="/logout" @click="test">Logga ut</a>
+      <router-link class="nav-link" to="/logout">Logga ut</router-link>
       
     </div>
+
+    {{loggedIn}}
+    {{currentUser.username}}
   </nav>
 </template>
 
@@ -21,24 +24,27 @@ export default {
   name: "Navbar",
 
   computed:{
-          loggedIn(){
-              return this.$store.state.loggedIn;
-          }
+    loggedIn(){
+      return this.$store.state.loggedIn;
+    },
+
+    currentUser(){
+      return this.$store.state.currentUser;
+    },
+
+
   },
   methods:{
-    test(){
-      this.$store.commit('setLoggedIn', false)
-      this.$router.push('/')
-    }
+    
   }
 };
 </script>
 
 <style scoped>
+
 a {
   font-weight: 300;
   font-family: "Playfair Display", serif;
-  font-size: 25px;
 }
 
 nav {
@@ -55,7 +61,7 @@ img {
   text-decoration: none;
   color: rgb(245, 183, 13);
   font-size: 30px;
-  margin-right: 30px;
+  margin-right: 5vw;
 }
 
 .nav-link:hover {
