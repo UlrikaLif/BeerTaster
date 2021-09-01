@@ -8,8 +8,6 @@ const state = {
     currentBeerGrades: [],
     loggedIn: false,
     
-
-    
 }
 
 
@@ -32,12 +30,19 @@ const mutations = {
 
     setMyGrades(state, gradeList){
         state.myGrades = gradeList;
-        console.log("setMyGrades: ", state.myGrades)
     },
 
     setCurrentBeerGrades(state, gradeList){
         state.currentBeerGrades = gradeList;
     },
+
+    addBeerToAllBeers(state,beer){
+        state.allBeers.push(beer);
+    },
+
+    removeBeerFromAllBeers(state,index){
+        state.allBeers.splice(index, 1);
+    }
 
     
         
