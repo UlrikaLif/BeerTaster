@@ -17,16 +17,17 @@ public class BeerSortService {
         return (List<BeerSort>) beerSortRepository.findAll();
     }
 
-    public void addNewBeerSort(BeerSort beerSort) {
-        beerSortRepository.save(beerSort);
+    public BeerSort addNewBeerSort(BeerSort beerSort) {
+        return beerSortRepository.save(beerSort);
     }
 
 
-    public void updateBeerSort(int id, BeerSort beerSort) {
+    public BeerSort updateBeerSort(int id, BeerSort beerSort) {
         if (beerSortRepository.existsById(id)){
             beerSort.setId(id);
-            beerSortRepository.save(beerSort);
+            return beerSortRepository.save(beerSort);
         }
+        return null;
     }
 
     public void deleteBeerSort(int id) {
