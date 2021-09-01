@@ -4,7 +4,7 @@
 
     <h3>Lägg till ett nytt öl i databasen</h3>
     
-    <form id="beer-form" v-on:submit="sendBeer">
+    <form id="beer-form" v-on:submit.prevent="sendBeer">
 
         <div v-if="errors.length">
           <b>Kvar att fylla i: </b>
@@ -56,7 +56,6 @@
            
     </form>
 
-    {{}}
   </div>
 </template>
 
@@ -66,7 +65,6 @@
 export default {
   
   name: "AddBeer",
-
 
   data(){
     return {
@@ -81,6 +79,9 @@ export default {
   },
 
   computed:{
+    allBeers(){
+      return this.$store.state.allBeers;
+    }
 
   },
 
@@ -122,6 +123,19 @@ export default {
 
     },
 
+    existsInDB(newBeer){
+
+      for (let beer of this.allBeers){
+        if ((beer.name == newBeer.name) && (beer.category == newBeer.category) 
+        && (beer.brewery == newBeer.brewery) && (beer.country == newBeer.country) ){
+        
+          return true;
+        }
+      }
+
+      return false;
+    },
+
     sendBeer(e){
 
       if (this.checkForm(e)){
@@ -132,16 +146,25 @@ export default {
             brewery: this.brewery,
             country: this.country
         }
-   
-        this.addBeerToDB(newBeer);
-        
 
+        // Check to make sure the beer is not already in the database
+
+        if (!this.existsInDB(newBeer)){
+          this.addBeerToDB(newBeer);
+        }
+        else{
+          this.msg = "Ölet finns redan i databasen!";
+          setTimeout(() => {this.msg = "";}, 2000);
+          
+        }
+      
+        
         e.preventDefault();
       }
     },
 
     async addBeerToDB(newBeer){
-  
+
       try{
           let result = await fetch ('/api/beersorts', {
               method: 'POST',
@@ -153,12 +176,17 @@ export default {
 
           let dataFromDB = await result.json();
 
+          // Add the beer to allBeers in store 
+
+          newBeer['id'] = dataFromDB.id;
+
+          this.$store.commit('addBeerToAllBeers', newBeer);
+          
+
           this.msg = "Ölet har lagts till i databasen"
           this.emptydata();
-
-          const timer = ms => new Promise(res => setTimeout(res, ms));
-          await timer(1500);
-          this.msg = "";
+          setTimeout(() => {this.msg = "";}, 1500); 
+  
           
       }
       catch(err){
