@@ -3,6 +3,8 @@
     <div v-if="!loggedIn">
       <router-link class="nav-link" to="/">Startsida</router-link>
 
+      <router-link class="nav-link" to="/about">Om oss</router-link>
+
       <router-link class="nav-link" to="/login">Logga in</router-link>
       
     </div>
@@ -10,12 +12,14 @@
     <div v-else>
       <router-link class="nav-link" to="/user-page">Min Sida</router-link>
 
+      <router-link class="nav-link" to="/about">Om oss</router-link>
+
       <router-link class="nav-link" to="/logout">Logga ut</router-link>
       
     </div>
 
-    {{loggedIn}}
-    {{currentUser.username}}
+    
+ 
   </nav>
 </template>
 
@@ -28,11 +32,8 @@ export default {
       return this.$store.state.loggedIn;
     },
 
-    currentUser(){
-      return this.$store.state.currentUser;
-    },
-
-
+   
+ 
   },
   methods:{
     
