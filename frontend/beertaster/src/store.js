@@ -8,6 +8,8 @@ const state = {
     currentBeerGrades: [],
     loggedIn: false,
     
+
+    
 }
 
 
@@ -37,6 +39,7 @@ const mutations = {
         state.currentBeerGrades = gradeList;
     },
 
+    
         
 
 }
@@ -67,13 +70,6 @@ const actions = {
             console.error(error)
         }
 
-        /*
-        for (let grade of gradeList){
-            console.log("My grade: ", grade)
-            grade['beerSort'] = grade['beerSort'].id;
-            console.log("My new grade: ", grade)
-        }*/
-        console.log("My new gradelist: ",gradeList)
         store.commit ('setMyGrades', gradeList);
     },
 
