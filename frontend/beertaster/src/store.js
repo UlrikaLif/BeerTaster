@@ -7,6 +7,8 @@ const state = {
     myGrades: [],
     currentBeerGrades: [],
     loggedIn: false,
+    chosenBeerToUpdate: {},
+    chosenIndexToUpdate: ""
     
 }
 
@@ -34,6 +36,14 @@ const mutations = {
 
     setCurrentBeerGrades(state, gradeList){
         state.currentBeerGrades = gradeList;
+    },
+
+    setChosenBeerToUpdate(state, beer){
+        state.chosenBeerToUpdate = beer;
+    },
+
+    setChosenIndexToUpdate(state, index){
+        state.chosenIndexToUpdate = index;
     },
 
     addBeerToAllBeers(state,beer){

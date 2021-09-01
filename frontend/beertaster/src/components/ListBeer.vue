@@ -1,18 +1,16 @@
 <template>
   <div>
-        <h3>Lista över alla öl i databasen</h3>
-
-        <div v-if="beerHasBeenUpdated">
-
-        </div>
-
-        <div v-else-if="beerHasBeenDeleted">
+        
+       
+        <div v-if="beerHasBeenDeleted">
 
             <p>Ölet har raderats.</p>
 
         </div>
 
         <div v-else>
+
+            <h3>Lista över alla öl i databasen</h3>
             <table>
                 <thead>
                     <tr>
@@ -30,7 +28,7 @@
                         <td>{{beer.category}}</td>
                         <td>{{beer.brewery}}</td>
                         <td>{{beer.country}}</td>
-                        <td><button class="edit-beer-btn">Redigera</button></td>
+                        <td><button class="edit-beer-btn" @click="editBeer(beer,index)">Redigera</button></td>
                         <td><button class="delete-beer-btn" @click="deleteBeer(beer,index)">Radera</button></td>
                     </tr>
                 </tbody>
@@ -44,14 +42,15 @@
 </template>
 
 <script>
+    
     export default {
         name: "ListBeer",
 
         data(){
             return{
-                beerHasBeenUpdated: false,
                 beerHasBeenDeleted: false,
-                
+                chosenBeer: "",
+                chosenIndex: "",
             }
         },
 
@@ -64,20 +63,23 @@
 
         methods:{
 
+            editBeer(beer,index){
+                this.chosenBeer = beer;
+                this.$store.commit('setChosenBeerToUpdate', beer);
+                this.chosenIndex = index;
+                this.$store.commit('setChosenIndexToUpdate', index);
+                this.$router.push('/admin/update-beer')
+            },
+
             deleteBeer(beer,index){
            
-                this.deleteBeerFromDB(beer.id);
-                
-                  
-                this.$store.commit('removeBeerFromAllBeers', index);
+                this.deleteBeerFromDB(beer.id);  // Remove from Database
+                                  
+                this.$store.commit('removeBeerFromAllBeers', index);  // Remove from allBeers in store
 
-                this.beerHasBeenDeleted = true;
+                this.beerHasBeenDeleted = true;       // Show user message
             
-                setTimeout(() => {this.beerHasBeenDeleted = false;}, 1000);  
-
-                
-            
-                
+                setTimeout(() => {this.beerHasBeenDeleted = false;}, 1000); 
 
             },
 

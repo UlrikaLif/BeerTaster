@@ -14,6 +14,7 @@
         <add-beer v-if="choiceAction === '1' "></add-beer>
         <list-beer v-if="choiceAction === '2' "></list-beer>
 
+        <!-- Admin is currently not logged in so this option is not available now -->
 
     </div>
   

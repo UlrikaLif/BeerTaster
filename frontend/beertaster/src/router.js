@@ -9,6 +9,7 @@ import UserPage from '/src/components/UserPage.vue'
 import CreateGrade from '/src/components/create-grade.vue'
 import ViewGrade from '/src/components/view-grades.vue'
 import Admin from '/src/components/Admin.vue'
+import UpdateBeer from '/src/components/UpdateBeer.vue'
 
 
 // Routes to components
@@ -74,6 +75,12 @@ const routes = [
         path: '/admin',
         name: 'Admin',
         component: Admin
+    },
+
+    {
+        path: '/admin/update-beer',
+        name: 'UpdateBeer',
+        component: UpdateBeer
     },
 
 
