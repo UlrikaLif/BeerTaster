@@ -18,7 +18,7 @@ public class Grade {
     private User user;
 
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "beer_id")
     private BeerSort beerSort;
 

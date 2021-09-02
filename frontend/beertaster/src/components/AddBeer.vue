@@ -126,8 +126,15 @@ export default {
     existsInDB(newBeer){
 
       for (let beer of this.allBeers){
-        if ((beer.name == newBeer.name) && (beer.category == newBeer.category) 
-        && (beer.brewery == newBeer.brewery) && (beer.country == newBeer.country) ){
+        if ((beer.name.toLowerCase().trim() === newBeer.name.toLowerCase().trim()) 
+        && (beer.name.trim().length === newBeer.name.trim().length) 
+        && (beer.category.toLowerCase().trim() === newBeer.category.toLowerCase().trim())
+        && (beer.category.trim().length === newBeer.category.trim().length) 
+        && (beer.brewery.toLowerCase().trim() === newBeer.brewery.toLowerCase().trim()) 
+        && (beer.brewery.trim().length === newBeer.brewery.trim().length) 
+        && (beer.country.toLowerCase().trim() === newBeer.country.toLowerCase().trim()) 
+        && (beer.country.trim().length === newBeer.country.trim().length) 
+        ){
         
           return true;
         }
