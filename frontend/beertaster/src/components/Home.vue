@@ -15,10 +15,10 @@ export default {
         Result
     },
 
+    
     created(){
-        console.log("Begin created")
-        this.$store.dispatch("getAllBeersFromDB")
-        console.log("End created")
+        this.$store.dispatch("getAllBeersFromDB");
+      
     }
 }
 

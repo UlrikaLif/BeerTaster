@@ -7,6 +7,8 @@ const state = {
     myGrades: [],
     currentBeerGrades: [],
     loggedIn: false,
+    chosenBeerToUpdate: {},
+    chosenIndexToUpdate: ""
     
 }
 
@@ -30,13 +32,29 @@ const mutations = {
 
     setMyGrades(state, gradeList){
         state.myGrades = gradeList;
-        console.log("setMyGrades: ", state.myGrades)
     },
 
     setCurrentBeerGrades(state, gradeList){
         state.currentBeerGrades = gradeList;
     },
 
+    setChosenBeerToUpdate(state, beer){
+        state.chosenBeerToUpdate = beer;
+    },
+
+    setChosenIndexToUpdate(state, index){
+        state.chosenIndexToUpdate = index;
+    },
+
+    addBeerToAllBeers(state,beer){
+        state.allBeers.push(beer);
+    },
+
+    removeBeerFromAllBeers(state,index){
+        state.allBeers.splice(index, 1);
+    }
+
+    
         
 
 }
@@ -67,13 +85,6 @@ const actions = {
             console.error(error)
         }
 
-        /*
-        for (let grade of gradeList){
-            console.log("My grade: ", grade)
-            grade['beerSort'] = grade['beerSort'].id;
-            console.log("My new grade: ", grade)
-        }*/
-        console.log("My new gradelist: ",gradeList)
         store.commit ('setMyGrades', gradeList);
     },
 

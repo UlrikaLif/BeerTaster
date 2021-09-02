@@ -19,13 +19,13 @@ public class BeerSortController {
     }
 
     @PostMapping("/api/beersorts")
-    public void addNewBeerSort(@RequestBody BeerSort beerSort){
-        beerSortService.addNewBeerSort(beerSort);
+    public BeerSort addNewBeerSort(@RequestBody BeerSort beerSort){
+        return beerSortService.addNewBeerSort(beerSort);
     }
 
     @PutMapping("/api/beersorts/{id}")
-    public void updateBeerSort(@PathVariable int id, @RequestBody BeerSort beerSort){
-        beerSortService.updateBeerSort(id, beerSort);
+    public BeerSort updateBeerSort(@PathVariable int id, @RequestBody BeerSort beerSort){
+        return beerSortService.updateBeerSort(id, beerSort);
     }
 
     @DeleteMapping("/api/beersorts/{id}")

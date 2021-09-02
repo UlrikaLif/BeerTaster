@@ -1,21 +1,25 @@
 <template>
     <div>
 
-        <h3>Logga in</h3>
+        <h3>Registrera nytt konto</h3>
         <form @submit="sendForm">
-            <div v-if="errors.length">
-                <b>Var vänlig och korrigera följande fel innan du skickar in: </b>
+            <div class="error" v-if="errors.length">
+                <b>Åtgärda detta innan du skickar in: </b>
                 <ul>
                     <li v-for="(error,index) in errors" :key="index"> {{error}}</li>
                 </ul>
             </div>
             <div>
-                <label for="username"><Strong>Användarnamn:  </Strong></label>
+                <label for="username"><Strong>Ange Användarnamn:  </Strong></label>
                 <input id="username" v-model="username" type="text" name="username">
             </div>
             <div>
-                <label for="password"><Strong>Lösenord:  </Strong></label>
+                <label for="password"><Strong>Ange Lösenord:  </Strong></label>
                 <input id="password" v-model="password" type="password" name="password">  
+            </div>
+            <div>
+                <label for="password2"><Strong>Upprepa Lösenord:  </Strong></label>
+                <input id="password2" v-model="password2" type="password" name="password2">  
             </div>
             <div class="form-button">
                 <input type="submit" value="Skicka in">
@@ -23,49 +27,51 @@
             </div>
             
         </form>
-        <div class="register">
-            Har du inget konto:
-            <router-link to='/register'>Skapa konto</router-link>
-        </div>
-
-        
+              
 
     </div>
 </template>
 
 <script>
 export default {
-    name: "Login",
+    name: "Register",
 
     data(){
         return{
             username:"",
             password:"",
+            password2:"",
             errors:[],
         }
     },
 
     computed:{
-        loggedIn(){
-            return this.$store.state.loggedIn;
-        }
+       
     },
 
     methods:{
         checkForm (e) {
-            
-            if (this.username && this.password){
+        
+            if (this.username && this.password && this.password2 && (this.password == this.password2)){
                 return true;
             }
 
             this.errors = [];
 
             if (!this.username){
-                this.errors.push('Användarenamn är obligatoriskt');
+                this.errors.push('Fyll i Användarenamn');
             }
 
-             if (!this.password){
-                this.errors.push('Lösenord är obligatoriskt');
+            if (!this.password){
+                this.errors.push('Fyll i Lösenord'); 
+            }
+
+            if (!this.password2){
+                this.errors.push('Fyll i Upprepa Lösenord'); 
+            }
+
+            if (this.password2 != this.password){
+                this.errors.push('De två fälten för lösenord har inte samma värde'); 
             }
 
             e.preventDefault();
@@ -74,8 +80,8 @@ export default {
         sendForm(e){
             
             if (this.checkForm(e)){
-                this.customLogin();
-                       
+                this.registerUser();
+                console.log(this.username, this.password);
 
             }
 
@@ -111,14 +117,36 @@ export default {
             } catch {
                 console.log("Fel användarnamn/lösenord")
             }
-        }
-        
+        },
+
+        async registerUser(){
+            const newUser = {
+                username: this.username,
+                password: this.password
+            }
+
+            let response = await fetch ("/auth/register", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(newUser)
+            });
+
+            try{
+                response = await response.json()
+
+                console.log("New User : ", response)
+
+                this.customLogin();
+                
+            } catch {
+                console.log("Fel användarnamn/lösenord")
+            }
+        },
     }
 }
 </script>
 
 <style scoped>
-
 div{
     margin: 20px;
 }
@@ -127,9 +155,12 @@ div{
     margin-top: 50px;
 }
 
-input, select{
-    margin-left: 10px;
+.error{
+    color: rgb(214, 18, 18);
 }
 
+input, select{
+        margin-left: 10px;
+    }
 
 </style>

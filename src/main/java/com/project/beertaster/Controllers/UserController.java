@@ -25,6 +25,7 @@ public class UserController {
         return userService.customLogin(user, req);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/auth/current-user")
     public User findCurrentUser(){
         return userService.findCurrentUser();

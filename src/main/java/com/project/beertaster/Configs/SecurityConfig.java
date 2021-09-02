@@ -24,6 +24,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/", "/api/beersorts").permitAll()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/beersorts/**").permitAll() //Only temp - admin
+                .antMatchers(HttpMethod.PUT, "/api/beersorts/**").permitAll()  // Only temp - admin
+                .antMatchers(HttpMethod.DELETE, "/api/beersorts/**").permitAll() // Only temp - admin
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .formLogin()
