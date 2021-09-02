@@ -49,9 +49,8 @@ a {
 }
 
 nav {
-  -webkit-box-shadow: 0 8px 6px -6px rgb(124, 124, 124);
-  -moz-box-shadow: 0 8px 6px -6px rgb(153, 153, 153);
-  box-shadow: 0 8px 6px -6px rgb(153, 153, 153);
+  background-color: black;
+  padding: 15px 0px;
 }
 
 img {
@@ -60,12 +59,12 @@ img {
 
 .nav-link {
   text-decoration: none;
-  color: rgb(245, 183, 13);
+  color: rgb(255, 201, 14);
   font-size: 30px;
   margin-right: 5vw;
 }
 
 .nav-link:hover {
-  color: #00bfa5;
+  color: whitesmoke;
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="header">
-    <div>
+    
       <img src="../assets/logoBT.png" alt="BeerTaster logo" />
-    </div>
-        
+      
+      <router-link class="nav-link" to="/admin">ADMIN</router-link>
+              
     
     
   </div>
@@ -19,17 +20,26 @@ export default {
 
 * {
   box-sizing: border-box;
-  background-color: rgba(255, 196, 0);
+  background-color: rgba(255, 201, 14);
   margin: 0px;
+  
+}
+div{
+  text-align: center;
   height: 15vh;
 }
 
-
-
+.nav-link{
+  float:right;
+  margin-top: 5vh;
+  margin-right: 3vw;
+  text-decoration: none;
+  color:black;
+}
 
 img {
   margin-right: 5px;
+  height:100%;
 }
-
 
 </style>
