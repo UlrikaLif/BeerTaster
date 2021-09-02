@@ -166,16 +166,8 @@ export default {
             // set value in store
             this.$store.commit("setCurrentBeerGrades", gradesList);
         },
-
-       
-
- 
-        
-       
-       
-
-
-    }
+  
+           }
 
     
 }
@@ -189,18 +181,24 @@ export default {
     display: grid;
     width: 30vw;
     margin-top: 20px;
-    padding: 10px 25px;
-    background-color: rgb(250, 193, 7);
+    padding: 25px 25px;
+    background-color: rgb(255, 201, 14);
+    color: black;
     text-align: left;
+}
+a{
+    text-decoration: none;
+    color: black;
 }
 .filter-field{
     text-align: right;
     margin-right: 5vw;
+    margin-top: 0;
 }
 
 .filter {
     display: inline-block;
-    margin:20px;
+    margin: 0px 15px 0px 10px;
     align-content: flex-end;
 }
 

@@ -45,7 +45,7 @@
           
           <p class="form-button">
               <input class="form-button" type="submit" @click="checkForm" value="Skicka in">
-              <input class="form-button" type="reset" value="Rensa formulär">
+              <!--<input class="form-button" type="reset" @rclick="restoreForm" value="Återställ formulär"> -->
           </p>
 
       </div>
@@ -150,11 +150,13 @@ export default {
                 console.log("Gick inte att uppdatera")
                 console.log(error);
 
+                this.msg = "Gick inte att uppdatera";
+                setTimeout(() => {this.msg = "";}, 1500);
+
             }
 
-
         },
-    }  
+    }
 
 }
 </script>

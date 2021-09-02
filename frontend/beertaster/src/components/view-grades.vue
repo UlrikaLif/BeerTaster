@@ -17,12 +17,12 @@
                 Sötma: {{ grade.sweetness }} <br> 
                
                
-            
+                <!-- For later
                 <div class="crud">
                     <button class="button updateGrade" @click="updateCurrentGrade(grade)">Redigera omdöme</button>
                     <button class="button deleteGrade" @click="deleteCurrentGrade(grade)">Radera omdöme</button>                 
                 </div>
-                
+                -->
             </div>
         </div>
         
@@ -83,8 +83,9 @@ export default {
     display: grid;
     width: 30vw;
     margin-top: 20px;
-    padding: 10px 25px;
-    background-color: rgb(250, 193, 7);
+    padding: 25px 25px;
+    background-color: rgb(255, 201, 14);
+    color:black;
     text-align: left;
 }
 .filter-field{
