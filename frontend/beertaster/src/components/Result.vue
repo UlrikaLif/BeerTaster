@@ -78,29 +78,36 @@ export default {
             return beerCategories.sort();
         },
         publishedBeers(){
+            // All values in the categories are strings 
+            // To make sure the value matches exactly - their length after trim() is added as a filter
 
             // If no filter is chosen
-            if (this.selectedCountry == "" && this.selectedCategory == ""){
+            if (this.selectedCountry === "" && this.selectedCategory === ""){
                 return this.allBeers;
             } 
             // If user has chosen to filter by only country
             else if (this.selectedCategory == ""){
                 return this.allBeers.filter(beer => {
-                    return beer.country.toLowerCase().includes(this.selectedCountry.toLowerCase())
+                    return beer.country.toLowerCase().trim() === this.selectedCountry.toLowerCase().trim()
+                }).filter(beer => { return beer.country.trim().length === this.selectedCountry.trim().length
                 });
             }
             // if user has chosen to filter by only category
             else if (this.selectedCountry == ""){
                 return this.allBeers.filter(beer => {
-                    return beer.category.toLowerCase().includes(this.selectedCategory.toLowerCase())
+                    return beer.category.toLowerCase().trim() === this.selectedCategory.toLowerCase().trim()
+                }).filter(beer => { return beer.category.trim().length === this.selectedCategory.trim().length
                 });
             }
             else {
                 // If user has chosen to use both filters
                 return this.allBeers
-                    .filter(beer => { return beer.category.toLowerCase().includes(this.selectedCategory.toLowerCase())
-                }).filter(beer => { return beer.country.toLowerCase().includes(this.selectedCountry.toLowerCase())
+                    .filter(beer => { return beer.category.toLowerCase().trim() === this.selectedCategory.toLowerCase().trim()
+                    }).filter(beer => { return beer.category.trim().length === this.selectedCategory.trim().length
+                    }).filter(beer => { return beer.country.toLowerCase().trim() === this.selectedCountry.toLowerCase().trim()
+                    }).filter(beer => { return beer.country.trim().length === this.selectedCountry.trim().length
                 });
+                   
             }
 
         }
